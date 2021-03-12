@@ -17,14 +17,15 @@ class QuizViewModel: ViewModel() {
     private var hasCommitted = mutableSetOf<Int>()
     private var marks = 1
 
+    var isCheater = mutableSetOf<Int>()
     var currentIndex = 0
     var scores = 0
 
     val currentQuestionAnswer: Boolean
-    get() = questionBank[currentIndex].answer
+        get() = questionBank[currentIndex].answer
 
     val currentQuestionText: Int
-    get() = questionBank[currentIndex].textResId
+        get() = questionBank[currentIndex].textResId
 
     fun moveToNext() {
         currentIndex = (currentIndex + 1) % questionBank.size
@@ -48,5 +49,13 @@ class QuizViewModel: ViewModel() {
 
     fun hasFinished(): Boolean {
         return hasCommitted.size == questionBank.size
+    }
+
+    fun hasCheated(): Boolean {
+        return isCheater.contains(currentIndex)
+    }
+
+    fun cheat() {
+        isCheater.add(currentIndex)
     }
 }
