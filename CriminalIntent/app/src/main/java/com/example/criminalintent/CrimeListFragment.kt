@@ -1,5 +1,6 @@
 package com.example.criminalintent
 
+import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
@@ -9,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +25,7 @@ class CrimeListFragment: Fragment() {
     private var adapter: CrimeAdapter? = CrimeAdapter(emptyList())
 
     private val crimeListViewModel: CrimeListViewModel by lazy {
-        ViewModelProviders.of(this).get(CrimeListViewModel::class.java)
+        ViewModelProvider(this)[CrimeListViewModel::class.java]
     }
 
     interface Callbacks {

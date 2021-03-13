@@ -19,17 +19,24 @@ class CrimeRepository private constructor(context: Context) {
     ).build()
 
     private val crimeDao = database.crimeDao()
-//    private val executor = Executors.newSingleThreadExecutor() //remove before pushing
+    private val executor = Executors.newSingleThreadExecutor() //remove before pushing
 
     fun getCrimes(): LiveData<List<Crime>> = crimeDao.getCrimes()
 
     fun getCrime(id: UUID): LiveData<Crime?> = crimeDao.getCrime(id)
 
-//    fun addCrime(crime: Crime) {
-//        executor.execute {
-//            crimeDao.addCrime(crime)
-//        }
-//    } //remove this eventually
+    fun updateCrime(crime: Crime) {
+        executor.execute{
+            crimeDao.updateCrime(crime)
+        }
+    }
+
+    fun addCrime(crime: Crime) {
+        executor.execute {
+            crimeDao.addCrime(crime)
+        }
+    } //remove this eventually
+
 
     companion object {
         private var INSTANCE: CrimeRepository? = null
