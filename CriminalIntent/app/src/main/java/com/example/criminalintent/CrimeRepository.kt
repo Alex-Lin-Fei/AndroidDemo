@@ -4,19 +4,20 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.example.criminalintent.database.CrimeDatabase
+import com.example.criminalintent.database.migration_1_2
 import java.util.*
 import java.util.concurrent.Executors
-
 
 private const val DATABASE_NAME = "crime-database"
 
 class CrimeRepository private constructor(context: Context) {
 
-    private val database : CrimeDatabase = Room.databaseBuilder(
-            context.applicationContext,
-            CrimeDatabase::class.java,
-            DATABASE_NAME
-    ).build()
+    private val database: CrimeDatabase = Room.databaseBuilder(
+        context.applicationContext,
+        CrimeDatabase::class.java,
+        DATABASE_NAME
+    ).addMigrations(migration_1_2)
+        .build()
 
     private val crimeDao = database.crimeDao()
     private val executor = Executors.newSingleThreadExecutor() //remove before pushing
@@ -26,7 +27,7 @@ class CrimeRepository private constructor(context: Context) {
     fun getCrime(id: UUID): LiveData<Crime?> = crimeDao.getCrime(id)
 
     fun updateCrime(crime: Crime) {
-        executor.execute{
+        executor.execute {
             crimeDao.updateCrime(crime)
         }
     }
@@ -48,8 +49,7 @@ class CrimeRepository private constructor(context: Context) {
         }
 
         fun get(): CrimeRepository {
-            return INSTANCE ?:
-            throw IllegalStateException("CrimeRepository must be initialized")
+            return INSTANCE ?: throw IllegalStateException("CrimeRepository must be initialized")
         }
     }
 }

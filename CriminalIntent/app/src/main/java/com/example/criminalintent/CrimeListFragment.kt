@@ -7,12 +7,14 @@ import android.os.Handler
 import android.util.Log
 import android.view.*
 import android.widget.*
+import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -22,6 +24,8 @@ class CrimeListFragment: Fragment() {
 
     private lateinit var crimeRecyclerView: RecyclerView
     private var adapter: CrimeAdapter? = CrimeAdapter(emptyList())
+
+    private lateinit var emptyTextView: TextView
 
     private val crimeListViewModel: CrimeListViewModel by lazy {
         ViewModelProvider(this)[CrimeListViewModel::class.java]
@@ -81,6 +85,8 @@ class CrimeListFragment: Fragment() {
                 view.findViewById(R.id.crime_recycler_view) as RecyclerView
         crimeRecyclerView.layoutManager = LinearLayoutManager(context)
         crimeRecyclerView.adapter = adapter
+        emptyTextView = view.findViewById(R.id.empty_text_view)
+
 //        updateUI()
 
         return view
@@ -90,9 +96,7 @@ class CrimeListFragment: Fragment() {
         adapter = CrimeAdapter(crimes)
         crimeRecyclerView.adapter = adapter
 
-        if (crimes.isEmpty()) {
-
-        }
+        emptyTextView.visibility = if (crimes.isEmpty()) TextView.VISIBLE else TextView.GONE
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
