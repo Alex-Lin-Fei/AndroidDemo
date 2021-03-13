@@ -7,5 +7,4 @@ class CriminalIntentApplication: Application() {
         super.onCreate()
         CrimeRepository.initialize(this)
     }
-
 }
