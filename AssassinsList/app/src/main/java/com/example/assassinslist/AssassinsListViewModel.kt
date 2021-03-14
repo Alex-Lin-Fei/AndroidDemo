@@ -12,7 +12,8 @@ class AssassinsListViewModel: ViewModel() {
             member.gender = if (i % 3 == 0 && i % 6 != 0) Gender.MALE else Gender.FEMALE
             member.dead = i % 2 == 0
             member.information = "This is Member #$i"
-            members.add(member)
+//            members.add(member)
+            members += member
         }
     }
 }

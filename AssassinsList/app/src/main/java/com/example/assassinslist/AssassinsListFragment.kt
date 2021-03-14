@@ -1,10 +1,14 @@
 package com.example.assassinslist
 
+import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +19,7 @@ private const val TAG = "AssassinsListFragment"
 class AssassinsListFragment: Fragment() {
 
     private lateinit var assassinRecyclerView: RecyclerView
+//    private var adapter: MemberAdapter? = null
 
     private val assassinsListViewModel: AssassinsListViewModel by lazy {
         ViewModelProvider(this)[AssassinsListViewModel::class.java]
@@ -22,7 +27,6 @@ class AssassinsListFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(TAG, "Total members: ${assassinsListViewModel.members.size}")
     }
 
     override fun onCreateView(
@@ -33,7 +37,50 @@ class AssassinsListFragment: Fragment() {
         val view = inflater.inflate(R.layout.fragment_member_list, container, false)
         assassinRecyclerView = view.findViewById(R.id.member_recycler_view) as RecyclerView
         assassinRecyclerView.layoutManager = LinearLayoutManager(context)
+
+        updateUI()
+
         return view
+    }
+
+    private fun updateUI() {
+        val members = assassinsListViewModel.members
+        assassinRecyclerView.adapter = MemberAdapter(members)
+    }
+
+    private inner class MemberHolder(view: View): RecyclerView.ViewHolder(view) {
+        private lateinit var member: Member
+        private val nameTextView: TextView = itemView.findViewById(R.id.member_name)
+        private val birthdayTextView: TextView = itemView.findViewById(R.id.member_birthday)
+        private val deadImageView: ImageView = itemView.findViewById(R.id.member_dead) as ImageView
+
+        init {
+            itemView.setOnClickListener {
+                Toast.makeText(context, "${member.name} pressed", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        fun bind(member: Member) {
+            this.member = member
+            nameTextView.text = this.member.name
+            birthdayTextView.text = this.member.birthday.toString()
+            deadImageView.visibility = if (member.dead) ImageView.VISIBLE else ImageView.GONE
+        }
+    }
+
+    private inner class MemberAdapter(var members: List<Member>): RecyclerView.Adapter<MemberHolder>() {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemberHolder {
+            val view = layoutInflater.inflate(R.layout.list_item_member, parent, false)
+
+            return MemberHolder(view)
+        }
+
+        override fun onBindViewHolder(holder: MemberHolder, position: Int) {
+            val member = members[position]
+            holder.bind(member)
+        }
+
+        override fun getItemCount() = members.size
     }
 
     companion object {
