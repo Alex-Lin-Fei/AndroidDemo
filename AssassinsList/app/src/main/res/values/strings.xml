@@ -10,4 +10,5 @@
     <string name="member_dead">dead</string>
     <string name="member_information_lines">5</string>
     <string name="member_information_hint">Enter the information of member</string>
+    <string name="add_member">Add Member</string>
 </resources>
