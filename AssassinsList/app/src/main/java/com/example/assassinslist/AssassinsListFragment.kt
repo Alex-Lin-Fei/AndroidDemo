@@ -75,7 +75,7 @@ class AssassinsListFragment: Fragment() {
 
         init {
             itemView.setOnClickListener {
-                Toast.makeText(context, "${member.name} pressed", Toast.LENGTH_SHORT).show()
+                callbacks?.onMemberSelected(member.id)
             }
         }
 

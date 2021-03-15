@@ -13,8 +13,10 @@ import android.widget.EditText
 import android.widget.RadioGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import java.util.*
 
 private const val TAG = "MemberFragment"
+private const val ARG_MEMBER_ID = "member-id"
 class MemberFragment: Fragment() {
     private lateinit var member: Member
 
@@ -28,6 +30,9 @@ class MemberFragment: Fragment() {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "fragment create")
         member = Member()
+
+        val memberId: UUID = arguments?.getSerializable(ARG_MEMBER_ID) as UUID
+        Log.d(TAG, "args bundle member ID: $memberId")
     }
 
     override fun onCreateView(
@@ -104,6 +109,16 @@ class MemberFragment: Fragment() {
                 member.dead = isChecked
             }
         }
+    }
 
+    companion object {
+        fun newInstance(memberId: UUID): MemberFragment {
+            val args = Bundle().apply {
+                putSerializable(ARG_MEMBER_ID, memberId)
+            }
+            return MemberFragment().apply {
+                arguments = args
+            }
+        }
     }
 }

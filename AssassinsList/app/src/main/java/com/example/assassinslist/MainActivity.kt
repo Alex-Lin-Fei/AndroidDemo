@@ -6,6 +6,7 @@ import android.util.Log
 import java.util.*
 
 private const val TAG = "MainActivity"
+
 class MainActivity : AppCompatActivity(), AssassinsListFragment.Callbacks {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,13 +17,16 @@ class MainActivity : AppCompatActivity(), AssassinsListFragment.Callbacks {
         if (currentFragment == null) {
             val fragment = AssassinsListFragment.newInstance()
             supportFragmentManager
-                    .beginTransaction()
+                .beginTransaction()
                 .add(R.id.fragment_container, fragment)
                 .commit()
         }
     }
 
     override fun onMemberSelected(memberId: UUID) {
-        Log.d(TAG, "Selected")
+//        Log.d(TAG, "Selected $memberId")
+        val fragment = MemberFragment.newInstance(memberId)
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment)
+            .addToBackStack(null).commit()
     }
 }
