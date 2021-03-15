@@ -1,6 +1,7 @@
 package com.example.assassinslist.dabatase
 
 import androidx.room.TypeConverter
+import com.example.assassinslist.Gender
 import java.util.*
 
 class MemberTypeConverters {
@@ -16,8 +17,24 @@ class MemberTypeConverters {
         }
     }
 
+
+    @TypeConverter
+    fun fromUUID(uuid: UUID?): String? {
+        return uuid?.toString()
+    }
+
     @TypeConverter
     fun toUUID(uuid: String?): UUID? {
         return UUID.fromString(uuid)
+    }
+
+    @TypeConverter
+    fun fromGender(gender: Gender?): String? {
+        return gender?.toString()
+    }
+
+    @TypeConverter
+    fun toGender(gender: String?): Gender? {
+        return gender?.let { enumValueOf<Gender>(it) }
     }
 }
