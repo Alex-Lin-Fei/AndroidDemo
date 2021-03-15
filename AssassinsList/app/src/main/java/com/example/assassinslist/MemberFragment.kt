@@ -148,6 +148,7 @@ class MemberFragment: Fragment(), DatePickerFragment.Callbacks {
     private fun updateUI() {
         nameField.setText(member.name)
         informationField.setText(member.information)
+        birthdayButton.text = member.birthday.toString()
         member.gender = if (femaleRadioButton.isChecked) Gender.FEMALE else Gender.MALE
         deadCheckBox.isChecked = member.dead
     }
