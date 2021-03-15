@@ -1,6 +1,7 @@
 package com.example.assassinslist
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.example.assassinslist.dabatase.MemberDatabase
 import java.lang.IllegalStateException
@@ -18,9 +19,9 @@ class MemberRepository private constructor(context: Context) {
 
     private val memberDao = database.memberDao()
 
-    fun getCrimes(): List<Member> = memberDao.getMembers()
+    fun getMembers(): LiveData<List<Member>> = memberDao.getMembers()
 
-    fun getCrime(id: UUID): Member? = memberDao.getMember(id)
+    fun getMember(id: UUID): LiveData<Member?> = memberDao.getMember(id)
 
     companion object {
         private var INSTANCE: MemberRepository? = null

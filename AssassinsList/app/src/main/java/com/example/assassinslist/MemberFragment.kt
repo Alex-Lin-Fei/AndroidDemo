@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.RadioGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import java.util.*
 
 private const val TAG = "MemberFragment"
@@ -26,6 +27,10 @@ class MemberFragment: Fragment() {
     private lateinit var informationField: EditText
     private lateinit var deadCheckBox: CheckBox
 
+    private val memberDetailViewModel: MemberDetailViewModel by lazy {
+        ViewModelProvider(this)[MemberDetailViewModel::class.java]
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "fragment create")
@@ -33,6 +38,7 @@ class MemberFragment: Fragment() {
 
         val memberId: UUID = arguments?.getSerializable(ARG_MEMBER_ID) as UUID
         Log.d(TAG, "args bundle member ID: $memberId")
+        memberDetailViewModel.loadMember(memberId)
     }
 
     override fun onCreateView(
