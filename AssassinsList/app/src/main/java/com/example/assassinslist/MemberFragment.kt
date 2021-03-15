@@ -7,10 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.RadioGroup
+import android.widget.*
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -18,11 +15,17 @@ import java.util.*
 
 private const val TAG = "MemberFragment"
 private const val ARG_MEMBER_ID = "member-id"
-class MemberFragment: Fragment() {
+private const val DIALOG_BIRTHDAY = "dialog-birthday"
+private const val REQUEST_DATE = 0
+class MemberFragment: Fragment(), DatePickerFragment.Callbacks {
     private lateinit var member: Member
 
     private lateinit var nameField: EditText
+
     private lateinit var genderRadioGroup: RadioGroup
+    private lateinit var femaleRadioButton: RadioButton
+    private lateinit var maleRadioButton: RadioButton
+
     private lateinit var birthdayButton: Button
     private lateinit var informationField: EditText
     private lateinit var deadCheckBox: CheckBox
@@ -50,16 +53,26 @@ class MemberFragment: Fragment() {
 
         nameField = view.findViewById(R.id.member_name) as EditText
         genderRadioGroup = view.findViewById(R.id.radio_gender) as RadioGroup
+        femaleRadioButton = view.findViewById(R.id.radio_button_female) as RadioButton
+        maleRadioButton = view.findViewById(R.id.radio_button_male) as RadioButton
+
         birthdayButton = view.findViewById(R.id.member_birthday) as Button
         informationField = view.findViewById(R.id.member_information) as EditText
         deadCheckBox = view.findViewById(R.id.member_dead) as CheckBox
 
-        birthdayButton.apply {
-            text = member.birthday.toString()
-            isEnabled = false
-        }
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        memberDetailViewModel.memberLiveDate.observe(viewLifecycleOwner,
+            { member ->
+                member?.let {
+                    this.member = member
+                    updateUI()
+                }
+            })
     }
 
     override fun onStart() {
@@ -80,8 +93,6 @@ class MemberFragment: Fragment() {
 
         nameField.addTextChangedListener(nameWatcher)
 
-
-
         genderRadioGroup.setOnCheckedChangeListener { _: RadioGroup, i: Int ->
             run {
                 when (i) {
@@ -92,6 +103,13 @@ class MemberFragment: Fragment() {
             }
         }
 
+
+        birthdayButton.setOnClickListener {
+            DatePickerFragment.newInstance(member.birthday).apply {
+                setTargetFragment(this@MemberFragment, REQUEST_DATE)
+                show(this@MemberFragment.requireFragmentManager(), DIALOG_BIRTHDAY)
+            }
+        }
 
         val informationWatcher = object: TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -115,6 +133,18 @@ class MemberFragment: Fragment() {
                 member.dead = isChecked
             }
         }
+    }
+
+    override fun onDateSelected(date: Date) {
+        member.birthday = date
+        updateUI()
+    }
+
+    private fun updateUI() {
+        nameField.setText(member.name)
+        informationField.setText(member.information)
+        member.gender = if (femaleRadioButton.isChecked) Gender.FEMALE else Gender.MALE
+        deadCheckBox.isChecked = member.dead
     }
 
     companion object {
