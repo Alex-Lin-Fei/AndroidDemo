@@ -4,9 +4,7 @@ import android.content.Context
 import android.media.Image
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -36,6 +34,7 @@ class AssassinsListFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onAttach(context: Context) {
@@ -64,8 +63,9 @@ class AssassinsListFragment: Fragment() {
 
     private fun updateUI() {
         val members = assassinsListViewModel.members
-        assassinRecyclerView.adapter = MemberAdapter(members)
+        assassinRecyclerView.adapter = members.value?.let { MemberAdapter(it) }
     }
+
 
     private inner class MemberHolder(view: View): RecyclerView.ViewHolder(view) {
         private lateinit var member: Member
@@ -84,6 +84,23 @@ class AssassinsListFragment: Fragment() {
             nameTextView.text = this.member.name
             birthdayTextView.text = this.member.birthday.toString()
             deadImageView.visibility = if (member.dead) ImageView.VISIBLE else ImageView.GONE
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.fragment_member_list, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.add_member -> {
+                val member = Member()
+                assassinsListViewModel.addMember(member)
+                callbacks?.onMemberSelected(member.id)
+                true
+            }
+            else -> return super.onOptionsItemSelected(item)
         }
     }
 
