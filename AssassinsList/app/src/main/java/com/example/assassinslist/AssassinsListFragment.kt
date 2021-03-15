@@ -1,5 +1,6 @@
 package com.example.assassinslist
 
+import android.content.Context
 import android.media.Image
 import android.os.Bundle
 import android.util.Log
@@ -13,10 +14,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import java.util.*
+import javax.security.auth.callback.Callback
 import kotlin.math.log
 
 private const val TAG = "AssassinsListFragment"
 class AssassinsListFragment: Fragment() {
+
+    interface Callbacks {
+        fun onMemberSelected(memberId: UUID)
+    }
+
+    private var callbacks: Callbacks? = null
 
     private lateinit var assassinRecyclerView: RecyclerView
 //    private var adapter: MemberAdapter? = null
@@ -27,6 +36,11 @@ class AssassinsListFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callbacks = context as Callbacks?
     }
 
     override fun onCreateView(
@@ -41,6 +55,11 @@ class AssassinsListFragment: Fragment() {
         updateUI()
 
         return view
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callbacks = null
     }
 
     private fun updateUI() {
