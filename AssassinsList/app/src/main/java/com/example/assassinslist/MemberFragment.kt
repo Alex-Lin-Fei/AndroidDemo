@@ -135,6 +135,11 @@ class MemberFragment: Fragment(), DatePickerFragment.Callbacks {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        memberDetailViewModel.saveMember(member)
+    }
+
     override fun onDateSelected(date: Date) {
         member.birthday = date
         updateUI()

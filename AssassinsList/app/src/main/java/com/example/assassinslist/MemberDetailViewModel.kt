@@ -18,4 +18,8 @@ class MemberDetailViewModel: ViewModel() {
     fun loadMember(memberId: UUID) {
         memberIdLiveData.value = memberId
     }
+
+    fun saveMember(member: Member) {
+        memberRepository.updateMember(member)
+    }
 }
