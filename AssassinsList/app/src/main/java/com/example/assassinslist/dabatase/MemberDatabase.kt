@@ -9,5 +9,5 @@ import com.example.assassinslist.Member
 @Database(entities = [Member::class], version = 1)
 @TypeConverters(MemberTypeConverters::class)
 abstract class MemberDatabase: RoomDatabase() {
-
+    abstract fun memberDao(): MemberDao
 }
