@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Login</string>
+    <string name="login_text">Login</string>
+
+    <string name="welcome">Hello, %1$s. Your password is %2$s.</string>
+
+<!--    Login Activity-->
+    <string name="user_name">User Name</string>
+    <string name="user_password">password</string>
+    <string name="ensrue_button">ensure</string>
+</resources>
