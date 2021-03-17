@@ -57,9 +57,8 @@ class MemberFragment: Fragment(), DatePickerFragment.Callbacks {
         maleRadioButton = view.findViewById(R.id.radio_button_male) as RadioButton
 
         birthdayButton = view.findViewById(R.id.member_birthday) as Button
-        informationField = view.findViewById(R.id.member_information) as EditText
+        informationField = view.findViewById(R.id.member_information)  as EditText
         deadCheckBox = view.findViewById(R.id.member_dead) as CheckBox
-
 
         return view
     }
@@ -78,7 +77,7 @@ class MemberFragment: Fragment(), DatePickerFragment.Callbacks {
     override fun onStart() {
         super.onStart()
 
-        val nameWatcher =  object: TextWatcher {
+        val nameWatcher = object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -111,9 +110,9 @@ class MemberFragment: Fragment(), DatePickerFragment.Callbacks {
             }
         }
 
-        val informationWatcher = object: TextWatcher {
+        val informationWatcher = object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                Log.d(TAG, "before")
+                Log.d(TAG, "before input info")
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -122,7 +121,7 @@ class MemberFragment: Fragment(), DatePickerFragment.Callbacks {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                Log.d(TAG, "after")
+                Log.d(TAG, "after input info")
             }
         }
 
@@ -149,7 +148,10 @@ class MemberFragment: Fragment(), DatePickerFragment.Callbacks {
         nameField.setText(member.name)
         informationField.setText(member.information)
         birthdayButton.text = member.birthday.toString()
-        member.gender = if (femaleRadioButton.isChecked) Gender.FEMALE else Gender.MALE
+        when (member.gender) {
+            Gender.MALE -> maleRadioButton.isChecked = true
+            else -> femaleRadioButton.isChecked = true
+        }
         deadCheckBox.isChecked = member.dead
     }
 

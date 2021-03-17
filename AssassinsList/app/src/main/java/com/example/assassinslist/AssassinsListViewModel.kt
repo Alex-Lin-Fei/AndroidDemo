@@ -18,7 +18,7 @@ class AssassinsListViewModel: ViewModel() {
 //    }
 
     private val memberRepository = MemberRepository.get()
-    val members = memberRepository.getMembers()
+    val assassinsListLiveData = memberRepository.getMembers()
 
     fun addMember(member: Member) {
         memberRepository.addMember(member)

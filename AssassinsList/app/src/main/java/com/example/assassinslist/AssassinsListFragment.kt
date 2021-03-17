@@ -1,20 +1,16 @@
 package com.example.assassinslist
 
 import android.content.Context
-import android.media.Image
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
-import javax.security.auth.callback.Callback
-import kotlin.math.log
+
 
 private const val TAG = "AssassinsListFragment"
 class AssassinsListFragment: Fragment() {
@@ -25,8 +21,9 @@ class AssassinsListFragment: Fragment() {
 
     private var callbacks: Callbacks? = null
 
+
     private lateinit var assassinRecyclerView: RecyclerView
-//    private var adapter: MemberAdapter? = null
+    private var adapter: MemberAdapter? = MemberAdapter(emptyList())
 
     private val assassinsListViewModel: AssassinsListViewModel by lazy {
         ViewModelProvider(this)[AssassinsListViewModel::class.java]
@@ -50,10 +47,20 @@ class AssassinsListFragment: Fragment() {
         val view = inflater.inflate(R.layout.fragment_member_list, container, false)
         assassinRecyclerView = view.findViewById(R.id.member_recycler_view) as RecyclerView
         assassinRecyclerView.layoutManager = LinearLayoutManager(context)
-
-        updateUI()
+        assassinRecyclerView.adapter = adapter
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        assassinsListViewModel.assassinsListLiveData.observe(
+            viewLifecycleOwner, { members ->
+                members?.let {
+                    updateUI(members)
+                }
+            }
+        )
     }
 
     override fun onDetach() {
@@ -61,9 +68,9 @@ class AssassinsListFragment: Fragment() {
         callbacks = null
     }
 
-    private fun updateUI() {
-        val members = assassinsListViewModel.members
-        assassinRecyclerView.adapter = members.value?.let { MemberAdapter(it) }
+    private fun updateUI(members: List<Member>) {
+        adapter = MemberAdapter(members)
+        assassinRecyclerView.adapter = adapter
     }
 
 
