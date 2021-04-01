@@ -23,5 +23,5 @@
         android:id="@+id/mail_menu"
         android:title="@string/mail_menu"
         app:showAsAction="ifRoom|withText"/>
-    
+
 </menu>

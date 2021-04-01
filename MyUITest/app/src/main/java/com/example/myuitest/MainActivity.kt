@@ -1,13 +1,14 @@
 package com.example.myuitest
 
 import android.app.Activity
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ActionMenuView
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 
 private const val SHOW_INFO = 1
 
@@ -52,7 +53,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (requestCode == SHOW_INFO) {
+        }
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        return super.onCreateOptionsMenu(menu).apply {
+            menuInflater.inflate(R.menu.my_menu, menu)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return super.onOptionsItemSelected(item).apply {
+            Toast.makeText(this@MainActivity, "You have click menu ${item.title}", Toast.LENGTH_SHORT).show()
         }
     }
 }
