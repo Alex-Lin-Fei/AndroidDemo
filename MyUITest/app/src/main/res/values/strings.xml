@@ -14,4 +14,6 @@
     <string name="print_menu">Print</string>
     <string name="mail_menu">Mail</string>
     <string name="save_button_text">Save</string>
+
+    <string name="person_age_height">age: %1$s height: %2$s</string>
 </resources>

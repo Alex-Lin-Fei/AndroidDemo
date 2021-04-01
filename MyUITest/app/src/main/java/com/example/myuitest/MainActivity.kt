@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
 //            val height = heightEditText.text.toString().toDouble()
 //            val intent = InfoActivity.newIntent(this@MainActivity, name, age, height)
 //            startActivityForResult(intent, SHOW_INFO)
+            startActivity(Intent(this, ListActivity::class.java))
         }
 
         saveInfo.setOnClickListener {

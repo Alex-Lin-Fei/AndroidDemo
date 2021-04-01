@@ -4,11 +4,13 @@ import androidx.lifecycle.ViewModel
 
 class PersonListViewModel: ViewModel() {
 
-     var personList = mutableListOf<Person>()
+    private var personList = mutableListOf<Person>()
 
     fun addPerson(person: Person) {
         personList.add(person)
     }
+
+    fun getPersons() = personList
 
     companion object {
         private var personListViewModel: PersonListViewModel = PersonListViewModel()
