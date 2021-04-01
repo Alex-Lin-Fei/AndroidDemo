@@ -40,7 +40,7 @@ class InfoActivity : AppCompatActivity() {
 
 
     companion object {
-        fun newIntent(packageContext: Context, name: String, age: String, height: String): Intent {
+        fun newIntent(packageContext: Context, name: String, age: Int, height: Double): Intent {
             return Intent(packageContext, InfoActivity::class.java).apply {
                 putExtra(EXTRA_NAME, name)
                 putExtra(EXTRA_AGE, age)

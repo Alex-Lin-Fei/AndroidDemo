@@ -38,8 +38,8 @@ class MainActivity : AppCompatActivity() {
 
         showInfo.setOnClickListener {
             val name = nameEditText.text.toString()
-            val age = ageEditText.text.toString()
-            val height = heightEditText.text.toString()
+            val age = ageEditText.text.toString().toInt()
+            val height = heightEditText.text.toString().toDouble()
             val intent = InfoActivity.newIntent(this@MainActivity, name, age, height)
             startActivityForResult(intent, SHOW_INFO)
         }
