@@ -5,4 +5,6 @@
     <string name="height_label">Height: </string>
     <string name="delete_button_text">Delete</string>
     <string name="show_button_text">Show</string>
+    <string name="info_heading">Information</string>
+    <string name="info">Hello,My name is %1s$, I am %2s$ years old, and my height is %3s$.</string>
 </resources>
