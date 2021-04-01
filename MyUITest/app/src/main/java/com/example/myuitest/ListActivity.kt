@@ -1,29 +1,33 @@
 package com.example.myuitest
 
+import android.content.Intent
+import android.icu.text.IDNA
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.TestLooperManager
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
+private const val TAG = "List Activity"
 class ListActivity : AppCompatActivity() {
 
     private lateinit var personRecyclerView: RecyclerView
 
     private val personListViewModel: PersonListViewModel = PersonListViewModel.getInstance()
-    private var adapter: PersonAdapter? = PersonAdapter(emptyList())
+//    private var adapter: PersonAdapter? = PersonAdapter(MutableList())
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "Create")
         setContentView(R.layout.activity_list)
 
         personRecyclerView = findViewById(R.id.person_recycler_view)
         personRecyclerView.layoutManager = LinearLayoutManager(this)
-        personRecyclerView.adapter = adapter
     }
 
     override fun onResume() {
@@ -32,8 +36,8 @@ class ListActivity : AppCompatActivity() {
     }
 
     private fun updateUI() {
-        adapter = PersonAdapter(personListViewModel.getPersons())
-        personRecyclerView.adapter = adapter
+        personRecyclerView.adapter = PersonAdapter(personListViewModel.getPersons())
+        Log.d(TAG, "${personListViewModel.getPersons().size}")
     }
 
     private inner class PersonHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -49,9 +53,15 @@ class ListActivity : AppCompatActivity() {
             ageAndHeightTextView.text = getString(R.string.person_age_height, person.age.toString(), person.height.toString())
         }
 
+        init {
+            itemView.setOnClickListener {
+                val intent = InfoActivity.newIntent(this@ListActivity, person.name, person.age, person.height)
+                startActivity(intent)
+            }
+        }
     }
 
-    private inner class PersonAdapter(var persons: List<Person>) :
+    private inner class PersonAdapter(var persons: MutableList<Person>) :
         RecyclerView.Adapter<PersonHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonHolder {
             val view = layoutInflater.inflate(R.layout.list_item, parent, false)

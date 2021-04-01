@@ -28,8 +28,8 @@ class InfoActivity : AppCompatActivity() {
         returnButton = findViewById(R.id.return_button)
 
         name = intent.getStringExtra(EXTRA_NAME).toString()
-        age = intent.getStringExtra(EXTRA_AGE).toString()
-        height = intent.getStringExtra(EXTRA_HEIGHT).toString()
+        age = intent.getIntExtra(EXTRA_AGE, 0).toString()
+        height = intent.getDoubleExtra(EXTRA_HEIGHT, 0.0).toString()
 
         infoTextView.text = getString(R.string.info, name, age, height)
         returnButton.setOnClickListener {
