@@ -17,21 +17,21 @@ class InfoActivity : AppCompatActivity() {
     private lateinit var age: String
     private lateinit var height: String
 
-    private lateinit var InfoTextView: TextView
+    private lateinit var infoTextView: TextView
     private lateinit var returnButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info)
 
-        InfoTextView = findViewById(R.id.info)
+        infoTextView = findViewById(R.id.info)
         returnButton = findViewById(R.id.return_button)
 
         name = intent.getStringExtra(EXTRA_NAME).toString()
         age = intent.getStringExtra(EXTRA_AGE).toString()
         height = intent.getStringExtra(EXTRA_HEIGHT).toString()
 
-        InfoTextView.text = getString(R.string.info, name, age, height)
+        infoTextView.text = getString(R.string.info, name, age, height)
         returnButton.setOnClickListener {
             setResult(Activity.RESULT_OK)
             finish()

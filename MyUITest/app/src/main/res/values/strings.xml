@@ -8,4 +8,9 @@
     <string name="info_heading">Information</string>
     <string name="info">Hello,My name is %1$s, I am %2$s years old, and my height is %3$s.</string>
     <string name="return_button">Return</string>
+
+    <string name="setting_menu">Setting</string>
+    <string name="new_menu">New</string>
+    <string name="print_menu">Print</string>
+    <string name="mail_menu">Mail</string>
 </resources>
