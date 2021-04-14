@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
 
         createDatabase = findViewById(R.id.createDatabase)
 
-        val dbHelper = DatabaseHelper(this, "BookStore.db", 1)
+        val dbHelper = DatabaseHelper(this, "BookStore.db", 2)
         createDatabase.setOnClickListener {
             dbHelper.writableDatabase
         }
