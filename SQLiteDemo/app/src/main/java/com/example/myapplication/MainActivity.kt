@@ -3,8 +3,11 @@ package com.example.myapplication
 import android.content.ContentValues
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 
+private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
 
     private lateinit var createDatabase: Button
@@ -43,11 +46,42 @@ class MainActivity : AppCompatActivity() {
                 put("name", "The lost Symbol")
                 put("author", "Dan Brown")
                 put("pages", 510)
-                put("price", 510)
                 put("price", 19.95)
             }
             db.insert("Book", null, values2)
         }
-    }
 
+        updateData.setOnClickListener {
+            val db = dbHelper.writableDatabase
+            val values = ContentValues()
+            values.put("price", 10.99)
+            db.update("Book", values, "name=?", arrayOf("The Da Vinci Code"))
+            Toast.makeText(this, "update succeeded", Toast.LENGTH_SHORT).show()
+        }
+
+
+        deleteData.setOnClickListener {
+            val db = dbHelper.writableDatabase
+            db.delete("Book", "pages>?", arrayOf("500"))
+        }
+
+        queryData.setOnClickListener {
+            val db = dbHelper.writableDatabase
+            val cursor = db.query("Book", null, null, null, null, null, null)
+            if (cursor.moveToFirst()) {
+                do {
+                    val name = cursor.getString(cursor.getColumnIndex("name"))
+                    val author = cursor.getString(cursor.getColumnIndex("author"))
+                    val pages = cursor.getInt(cursor.getColumnIndex("pages"))
+                    val price = cursor.getDouble(cursor.getColumnIndex("price"))
+                    Log.d(TAG, "book name is $name")
+                    Log.d(TAG, "book author is $author")
+                    Log.d(TAG, "book pages is $pages")
+                    Log.d(TAG, "book price is $price")
+
+                } while (cursor.moveToNext())
+            }
+            cursor.close()
+        }
+    }
 }
