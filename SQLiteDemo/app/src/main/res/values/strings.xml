@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">MyApplication</string>
     <string name="createDatabase">Create Dabatase</string>
+    <string name="addteData">Add Data</string>
+    <string name="addData">Add Data</string>
+    <string name="updateData">Update Data</string>
+    <string name="queryData">Query Data</string>
+    <string name="deleteData">Delete Data</string>
 </resources>
