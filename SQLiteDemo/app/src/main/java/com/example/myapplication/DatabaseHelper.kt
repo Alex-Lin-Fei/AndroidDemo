@@ -32,5 +32,4 @@ SQLiteOpenHelper(context, name, null, version) {
         db?.execSQL("drop table if exists Category")
         onCreate(db)
     }
-
 }

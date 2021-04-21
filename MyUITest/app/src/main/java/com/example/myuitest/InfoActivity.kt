@@ -5,12 +5,14 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 
 private const val EXTRA_NAME = "name"
 private const val EXTRA_AGE = "age"
 private const val EXTRA_HEIGHT = "height"
+private const val TAG = "info_activity"
 class InfoActivity : AppCompatActivity() {
 
     private lateinit var name: String
@@ -36,6 +38,11 @@ class InfoActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK)
             finish()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy() call")
     }
 
 

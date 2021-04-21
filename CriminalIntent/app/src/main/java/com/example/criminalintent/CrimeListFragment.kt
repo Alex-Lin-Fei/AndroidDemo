@@ -78,11 +78,14 @@ class CrimeListFragment: Fragment() {
 //    }
 
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.frame_crime_list, container, false)
         crimeRecyclerView =
-                view.findViewById(R.id.crime_recycler_view) as RecyclerView
+            view.findViewById(R.id.crime_recycler_view) as RecyclerView
         crimeRecyclerView.layoutManager = LinearLayoutManager(context)
         crimeRecyclerView.adapter = adapter
         emptyTextView = view.findViewById(R.id.empty_text_view)
@@ -139,7 +142,7 @@ class CrimeListFragment: Fragment() {
     }
 
     private inner class CrimeAdapter(var crimes: List<Crime>) :
-            RecyclerView.Adapter<CrimeHolder>() {
+        RecyclerView.Adapter<CrimeHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CrimeHolder {
             val view = layoutInflater.inflate(R.layout.list_item_crime, parent, false)
             return CrimeHolder(view)
