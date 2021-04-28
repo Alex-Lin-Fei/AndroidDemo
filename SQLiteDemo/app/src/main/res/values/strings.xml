@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SQLiteDemo</string>
+    <string name="createDb_btn">Create Database</string>
 </resources>
