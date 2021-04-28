@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">SQLiteDemo</string>
     <string name="createDb_btn">Create Database</string>
+    <string name="addData_btn">Add Data</string>
+    <string name="deleteData_btn">Delete Data</string>
+    <string name="updateData_btn">Update Data</string>
+    <string name="queryData_btn">Query Data</string>
 </resources>
