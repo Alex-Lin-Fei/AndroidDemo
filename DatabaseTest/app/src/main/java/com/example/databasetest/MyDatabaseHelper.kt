@@ -8,7 +8,7 @@ import android.widget.Toast
 class MyDatabaseHelper(val context: Context, name: String, version: Int):
 SQLiteOpenHelper(context, name, null, version){
 
-    private val createBook = "create table book (" +
+    private val createBook = "create table Book (" +
             " id integer primary key autoincrement, " +
             "author text, " +
             "price real, " +
