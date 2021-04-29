@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         createDatabase.setOnClickListener {
             dbHelper.writableDatabase
+            Toast.makeText(this, "create database successfully", Toast.LENGTH_SHORT).show()
         }
         contentValuesOf("" to "")
         addData.setOnClickListener {
@@ -56,6 +57,7 @@ class MainActivity : AppCompatActivity() {
                 put("price", 19.95)
             }
             db.insert("Book", null, values2) // 插入第二条数据
+            Toast.makeText(this, "add data successfully", Toast.LENGTH_SHORT).show()
         }
         updateData.setOnClickListener {
             val db = dbHelper.writableDatabase
@@ -67,6 +69,7 @@ class MainActivity : AppCompatActivity() {
         deleteData.setOnClickListener {
             val db = dbHelper.writableDatabase
             db.delete("Book", "pages > ?", arrayOf("500"))
+            Toast.makeText(this, "delete data successfully", Toast.LENGTH_SHORT).show()
         }
         queryData.setOnClickListener {
             val db = dbHelper.writableDatabase
@@ -86,6 +89,7 @@ class MainActivity : AppCompatActivity() {
                 } while (cursor.moveToNext())
             }
             cursor.close()
+            Toast.makeText(this, "query data successfully", Toast.LENGTH_SHORT).show()
         }
         replaceData.setOnClickListener {
             val db = dbHelper.writableDatabase

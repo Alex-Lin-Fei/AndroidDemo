@@ -24,7 +24,6 @@ SQLiteOpenHelper(context, name, null, version){
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL(createBook)
         db?.execSQL(createCategory)
-        Toast.makeText(context, "create database successfully", Toast.LENGTH_SHORT).show()
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
