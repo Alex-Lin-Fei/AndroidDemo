@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DatabaseTest">
         <provider
-            android:authorities="com.example.databasetest1.provider"
+            android:authorities="com.example.databasetest.provider"
             android:name=".DatabaseProvider"
             android:enabled="true"
             android:exported="true">

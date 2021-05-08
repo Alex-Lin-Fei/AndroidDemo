@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val dbHelper = MyDatabaseHelper(this, "BookStore2.db", 4)
+        val dbHelper = MyDatabaseHelper(this, "BookStore.db", 4)
 
         createDatabase = findViewById(R.id.createDatabase)
         addData = findViewById(R.id.addData)
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
             dbHelper.writableDatabase
             Toast.makeText(this, "create database successfully", Toast.LENGTH_SHORT).show()
         }
-        contentValuesOf("" to "")
+
         addData.setOnClickListener {
             val db = dbHelper.writableDatabase
             val values1 = ContentValues().apply {
