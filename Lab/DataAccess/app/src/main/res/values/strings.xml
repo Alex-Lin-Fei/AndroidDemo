@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">DataAccess</string>
+    <string name="add_to_staff">Add Data</string>
+    <string name="query_from_staff">Query Data</string>
+    <string name="update_staff">Update Data</string>
+    <string name="delete_from_staff">Delete Data</string>
 </resources>

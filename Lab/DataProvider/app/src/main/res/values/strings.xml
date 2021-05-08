@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">DataProvider</string>
+    <string name="name_tHeader">name</string>
+    <string name="gender_tHeader">gender</string>
+    <string name="department_tHeader">department</string>
+    <string name="salary_tHeader">salary</string>
 </resources>
