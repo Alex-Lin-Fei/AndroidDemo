@@ -18,14 +18,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var queryData: Button
     private lateinit var deleteData: Button
     private lateinit var replaceData: Button
-
+    private lateinit var downUpgrade: Button
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val dbHelper = MyDatabaseHelper(this, "BookStore.db", 3)
+        val dbHelper = MyDatabaseHelper(this, "BookStore2.db", 4)
 
         createDatabase = findViewById(R.id.createDatabase)
         addData = findViewById(R.id.addData)
@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         queryData = findViewById(R.id.queryData)
         deleteData = findViewById(R.id.deleteData)
         replaceData = findViewById(R.id.replaceData)
+        downUpgrade = findViewById(R.id.downUpgrade)
 
         createDatabase.setOnClickListener {
             dbHelper.writableDatabase
@@ -59,6 +60,7 @@ class MainActivity : AppCompatActivity() {
             db.insert("Book", null, values2) // 插入第二条数据
             Toast.makeText(this, "add data successfully", Toast.LENGTH_SHORT).show()
         }
+
         updateData.setOnClickListener {
             val db = dbHelper.writableDatabase
             val values = ContentValues()
@@ -66,11 +68,13 @@ class MainActivity : AppCompatActivity() {
             val rows = db.update("Book", values, "name = ?", arrayOf("The Da Vinci Code"))
             Toast.makeText(this, "rows is $rows", Toast.LENGTH_SHORT).show()
         }
+
         deleteData.setOnClickListener {
             val db = dbHelper.writableDatabase
             db.delete("Book", "pages > ?", arrayOf("500"))
             Toast.makeText(this, "delete data successfully", Toast.LENGTH_SHORT).show()
         }
+
         queryData.setOnClickListener {
             val db = dbHelper.writableDatabase
             // 查询Book表中所有的数据
@@ -91,6 +95,7 @@ class MainActivity : AppCompatActivity() {
             cursor.close()
             Toast.makeText(this, "query data successfully", Toast.LENGTH_SHORT).show()
         }
+
         replaceData.setOnClickListener {
             val db = dbHelper.writableDatabase
             db.beginTransaction() // 开启事务
@@ -108,6 +113,10 @@ class MainActivity : AppCompatActivity() {
             } finally {
                 db.endTransaction() // 结束事务
             }
+        }
+
+        downUpgrade.setOnClickListener {
+
         }
     }
 

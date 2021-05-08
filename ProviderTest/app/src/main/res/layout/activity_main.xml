@@ -8,24 +8,24 @@
         android:id="@+id/addData"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add To Book" />
+        android:text="@string/add_to_book" />
 
     <Button
         android:id="@+id/queryData"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Query From Book" />
+        android:text="@string/query_from_book" />
 
     <Button
         android:id="@+id/updateData"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Update Book" />
+        android:text="@string/update_book" />
 
     <Button
         android:id="@+id/deleteData"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Delete From Book" />
+        android:text="@string/delete_from_book" />
 
 </LinearLayout>

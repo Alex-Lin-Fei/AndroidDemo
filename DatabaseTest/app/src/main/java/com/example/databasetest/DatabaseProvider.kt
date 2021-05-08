@@ -26,7 +26,7 @@ class DatabaseProvider: ContentProvider() {
     }
 
     override fun onCreate() = context?.let {
-        dbHelper = MyDatabaseHelper(it, "BookStore.db", 2)
+        dbHelper = MyDatabaseHelper(it, "BookStore.db", 1)
         true
     }?:false
 
@@ -118,5 +118,4 @@ class DatabaseProvider: ContentProvider() {
         }
         updateRows
     }
-
 }

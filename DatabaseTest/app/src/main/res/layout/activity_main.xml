@@ -47,4 +47,11 @@
         android:text="@string/replace_data"
         />
 
+    <Button
+        android:id="@+id/downUpgrade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/down_upgrade"
+        />
+
 </LinearLayout>
