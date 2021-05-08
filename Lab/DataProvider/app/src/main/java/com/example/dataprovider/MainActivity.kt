@@ -1,12 +1,17 @@
 package com.example.dataprovider
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TableLayout
-import android.widget.TableRow
-import android.widget.TextView
-import android.widget.Toast
+import android.util.Log
+import android.util.TypedValue
+import android.view.Gravity
+import android.view.ViewGroup
+import android.widget.*
+import androidx.core.view.size
 
+
+private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
 
     private lateinit var staffTable: TableLayout
@@ -19,6 +24,8 @@ class MainActivity : AppCompatActivity() {
 
         dbHelper = MyDatabaseHelper(this, "test.db", 1)
         staffTable = findViewById(R.id.staff_table)
+
+        dbHelper.writableDatabase
 
 //        query  database and show in table
         showData()
@@ -39,27 +46,29 @@ class MainActivity : AppCompatActivity() {
 //                添加到表格
 
                 val item: TableRow = TableRow(applicationContext)
-                val nameTextView: TextView = TextView(applicationContext)
-                val genderTextView: TextView = TextView(applicationContext)
-                val departmentTextView: TextView = TextView(applicationContext)
-                val salaryTextView: TextView = TextView(applicationContext)
 
+                item.addView(getTextView(name))
+                item.addView(getTextView(gender))
+                item.addView(getTextView(department))
+                item.addView(getTextView(salary.toString()))
 
-                nameTextView.text = name
-                genderTextView.text = gender
-                departmentTextView.text = department
-                salaryTextView.text = salary.toString()
-
-                item.addView(nameTextView)
-                item.addView(genderTextView)
-                item.addView(departmentTextView)
-                item.addView(salaryTextView)
-
+                Log.d(TAG, "${item.size}")
                 staffTable.addView(item)
 
             } while (cursor.moveToNext())
         }
         cursor.close()
         Toast.makeText(this, "show data successfully", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun getTextView(text: String): TextView {
+        val textView: TextView = TextView(applicationContext)
+        textView.text = text
+        textView.setBackgroundColor(Color.rgb(255,255, 255))
+        textView.gravity = Gravity.CENTER
+        textView.setTextColor(Color.rgb(0,0, 0))
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15.0F)
+        textView.width = 260
+        return textView
     }
 }
