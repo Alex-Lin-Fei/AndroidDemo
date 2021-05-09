@@ -23,6 +23,7 @@ class MyService : Service() {
         thread {
 
         }
+
         return super.onStartCommand(intent, flags, startId)
     }
 

@@ -4,4 +4,14 @@
     <string name="query_from_staff">Query Data</string>
     <string name="update_staff">Update Data</string>
     <string name="delete_from_staff">Delete Data</string>
+    <string name="name_label">Name</string>
+    <string name="gender_label">gender</string>
+    <string name="salary_label">Salary</string>
+    <string name="department_label">Department</string>
+    <string name="add_data_btn">Add</string>
+    <string name="delete_data_btn">Delete</string>
+    <string name="query_data_btn">Query</string>
+    <string name="update_data_btn">Update</string>
+    <string name="heading">Staff</string>
+    <string name="id_label">Id</string>
 </resources>
