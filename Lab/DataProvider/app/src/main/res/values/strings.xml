@@ -4,4 +4,11 @@
     <string name="gender_tHeader">gender</string>
     <string name="department_tHeader">department</string>
     <string name="salary_tHeader">salary</string>
+    <string name="bg_color">backgroundColor</string>
+    <string name="red">R</string>
+    <string name="blue">B</string>
+    <string name="green">G</string>
+    <string name="text_color">Text Color</string>
+    <string name="font_size">Font Sze</string>
+    <string name="save_btn">Save</string>
 </resources>

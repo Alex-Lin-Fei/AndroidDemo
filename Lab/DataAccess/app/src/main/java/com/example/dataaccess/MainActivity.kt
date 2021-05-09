@@ -1,5 +1,6 @@
 package com.example.dataaccess
 
+import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,18 +13,12 @@ import androidx.core.content.contentValuesOf
 private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
 
-    //    需要添加的数据
-    private val staffs = listOf(
-            Staff("Tom", "male", "computer", 5400.0),
-            Staff("Einstein", "male", "computer", 4800.0),
-            Staff("Lily", "female", "market", 5000.0),
-            Staff("Warner", "male", "market"),
-            Staff("Napoleon", "male"),
-    )
-
     var staffId: String? = null
-    var uriString = "content://com.example.dataprovider.provider/"
-    val database = "staff"
+
+    companion object {
+        var uriString = "content://com.example.dataprovider.provider/"
+        val database = "staff"
+    }
 
     private lateinit var addData: Button
     private lateinit var queryData: Button
@@ -50,6 +45,10 @@ class MainActivity : AppCompatActivity() {
         genderText = findViewById(R.id.gender_text)
         departmentText = findViewById(R.id.department_text)
         salaryText = findViewById(R.id.salary_text)
+
+//        启动service
+        val intent = Intent(this, MyService::class.java)
+        startService(intent)
 
 
         addData.setOnClickListener {
@@ -112,5 +111,13 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Delete data successfully", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun onDestroy() {
+//        停止service
+        val intent = Intent(this, MyService::class.java)
+        stopService(intent)
+
+        super.onDestroy()
     }
 }
